@@ -30,10 +30,7 @@ class ErrorCalculator(Node):
         if not any(detection.results for detection in msg.detection_info.detections):
             return
         stamp = Time.from_msg(msg.detection_info.header.stamp)
-        if stamp.nanoseconds == 0 or (
-            self.last_detection_stamp is not None
-            and stamp == self.last_detection_stamp
-        ):
+        if stamp.nanoseconds == 0 or (self.last_detection_stamp is not None and stamp == self.last_detection_stamp):
             return
         if self.last_detection_stamp is not None and stamp < self.last_detection_stamp:
             self.pending.clear()
